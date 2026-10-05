@@ -1,0 +1,37 @@
+---
+import { tagPath } from '../utils/slug';
+
+interface Props {
+  title: string;
+  description?: string;
+  date: Date;
+  category: string;
+  tags: string[];
+  href: string;
+}
+
+const { title, description, date, category, tags, href } = Astro.props;
+const dateStr = date.toLocaleDateString('zh-CN', {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
+---
+
+<article class="post-card">
+  <div class="post-card-meta">
+    <span class="badge badge-category">{category}</span>
+    <time datetime={date.toISOString()}>{dateStr}</time>
+  </div>
+  <h2 class="post-card-title">
+    <a href={href}>{title}</a>
+  </h2>
+  {description && <p class="post-card-desc">{description}</p>}
+  {tags.length > 0 && (
+    <div class="post-card-tags">
+      {tags.map((tag) => (
+        <a href={tagPath(tag)} class="badge badge-tag">#{tag}</a>
+      ))}
+    </div>
+  )}
+</article>

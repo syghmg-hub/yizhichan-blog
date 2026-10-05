@@ -1,0 +1,7 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 340" width="400" height="340">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#a9cce3"/><stop offset="100%" stop-color="#1a5276"/>
+  </linearGradient></defs>
+  <rect width="400" height="340" fill="url(#g)"/>
+  <text x="200" y="170" text-anchor="middle" fill="rgba(255,255,255,.85)" font-size="22" font-family="sans-serif">占位图 03</text>
+</svg>

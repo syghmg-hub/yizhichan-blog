@@ -1,0 +1,42 @@
+---
+import { siteConfig } from '../config';
+
+const nav = [
+  { href: '/', label: '首页' },
+  { href: '/gallery/', label: '相册' },
+  { href: '/tags/', label: '标签' },
+  { href: '/about/', label: '关于' },
+];
+
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? path === '/' : path.startsWith(href);
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/">
+      <span class="brand-mark" aria-hidden="true">♪</span>
+      {siteConfig.title}
+    </a>
+    <nav class="nav">
+      {nav.map((item) => (
+        <a href={item.href} class:list={['nav-link', { active: isActive(item.href) }]}>
+          {item.label}
+        </a>
+      ))}
+      <button id="theme-toggle" class="nav-link theme-toggle" type="button" aria-label="切换深色模式">
+        <span class="icon-light">☀️</span>
+        <span class="icon-dark">🌙</span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('theme-toggle');
+  btn?.addEventListener('click', () => {
+    const isDark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  });
+</script>

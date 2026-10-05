@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { tagPath } from '../../utils/slug';
+
+const posts = await getCollection('posts', ({ data }) => !data.draft);
+const counts = new Map<string, number>();
+for (const post of posts) {
+  for (const tag of post.data.tags) {
+    counts.set(tag, (counts.get(tag) ?? 0) + 1);
+  }
+}
+const tags = [...counts.entries()].sort((a, b) => b[1] - a[1]);
+---
+
+<Base title="标签">
+  <header class="page-header">
+    <h1>标签</h1>
+    <p>共 {tags.length} 个标签</p>
+  </header>
+
+  <div class="tag-cloud">
+    {tags.map(([tag, count]) => (
+      <a href={tagPath(tag)} class="badge badge-tag">
+        #{tag} <span style="opacity:.6">{count}</span>
+      </a>
+    ))}
+  </div>
+</Base>

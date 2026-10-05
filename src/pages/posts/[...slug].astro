@@ -1,0 +1,98 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { tagPath } from '../../utils/slug';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+
+const dateStr = post.data.date.toLocaleDateString('zh-CN', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const postUrl = new URL(`/posts/${post.id}/`, Astro.site);
+---
+
+<Base title={post.data.title} description={post.data.description}>
+  <header class="article-header">
+    <div class="article-meta">
+      <span class="badge badge-category">{post.data.category}</span>
+      <time datetime={post.data.date.toISOString()}>{dateStr}</time>
+      {post.data.tags.map((tag) => (
+        <a href={tagPath(tag)} class="badge badge-tag">#{tag}</a>
+      ))}
+    </div>
+    <h1>{post.data.title}</h1>
+  </header>
+
+  {toc.length > 2 && (
+    <nav class="article-toc" aria-label="目录">
+      <strong>目录</strong>
+      <ul>
+        {toc.map((h) => (
+          <li class={`depth-${h.depth}`}>
+            <a href={`#${h.slug}`}>{h.text}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )}
+
+  <article class="article-body">
+    <Content />
+  </article>
+
+  <p style="margin-top:48px; color:var(--text-soft); font-size:.9rem;">
+    本文链接：<a href={postUrl}>{postUrl.pathname}</a>
+  </p>
+</Base>
+
+<style is:global>
+  .article-toc {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin-bottom: 32px;
+    font-size: 0.92rem;
+  }
+
+  .article-toc strong {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .article-toc ul {
+    margin: 0;
+    padding-left: 18px;
+  }
+
+  .article-toc li {
+    margin: 3px 0;
+  }
+
+  .article-toc li.depth-3 {
+    padding-left: 16px;
+    font-size: 0.88rem;
+  }
+
+  .article-toc a {
+    color: var(--text-soft);
+  }
+
+  .article-toc a:hover {
+    color: var(--accent);
+  }
+</style>

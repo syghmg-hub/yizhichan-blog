@@ -1,0 +1,27 @@
+---
+import { photos } from '../data/photos';
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="相册">
+  <header class="page-header">
+    <h1>相册</h1>
+    <p>随手拍下的光与影 · 共 {photos.length} 张</p>
+  </header>
+
+  <div class="gallery-grid">
+    {photos.map((photo) => (
+      <figure class="gallery-item">
+        <img src={photo.src} alt={photo.title} loading="lazy" />
+        <figcaption class="gallery-caption">
+          {photo.title} · {photo.date}
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+
+  <p style="margin-top:32px; color:var(--text-soft); font-size:.9rem;">
+    把 <code>public/gallery/</code> 里的占位图换成你的照片，并修改
+    <code>src/data/photos.ts</code> 即可。
+  </p>
+</Base>

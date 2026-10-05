@@ -1,0 +1,56 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import PostCard from '../components/PostCard.astro';
+
+const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+---
+
+<Base>
+  <section class="hero">
+    <h1>一只蝉</h1>
+    <p>记录生活随笔、摄影与技术笔记。夏天叫一叫，冬天安静。</p>
+  </section>
+
+  <nav class="tabs" id="filter-tabs">
+    <a class="tab active" data-cat="全部">全部</a>
+    <a class="tab" data-cat="随笔">随笔</a>
+    <a class="tab" data-cat="技术笔记">技术笔记</a>
+  </nav>
+
+  <section id="post-list">
+    {posts.map((post) => (
+      <div data-category={post.data.category}>
+        <PostCard
+          title={post.data.title}
+          description={post.data.description}
+          date={post.data.date}
+          category={post.data.category}
+          tags={post.data.tags}
+          href={`/posts/${post.id}/`}
+        />
+      </div>
+    ))}
+    {posts.length === 0 && <p class="empty-state">还没有文章。</p>}
+  </section>
+</Base>
+
+<script>
+  const tabs = document.querySelectorAll<HTMLAnchorElement>('#filter-tabs .tab');
+  const items = document.querySelectorAll<HTMLElement>('#post-list [data-category]');
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', (e) => {
+      e.preventDefault();
+      tabs.forEach((t) => t.classList.remove('active'));
+      tab.classList.add('active');
+      const cat = tab.dataset.cat;
+      items.forEach((item) => {
+        item.style.display =
+          cat === '全部' || item.dataset.category === cat ? '' : 'none';
+      });
+    });
+  });
+</script>
