@@ -88,9 +88,13 @@ body {
 
 main.container {
   flex: 1 0 auto;
+  /* 固定占满内容宽度：否则按栏目筛选后文章变少时，容器会跟着变窄，
+     再被 margin: 0 auto 推向右边，整块内容看起来就错位了 */
+  width: 100%;
 }
 
 .container {
+  width: 100%;
   max-width: var(--content-width);
   margin: 0 auto;
   padding: 0 20px;
