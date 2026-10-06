@@ -4,9 +4,9 @@
         顶部品牌栏 + 中间工作区（自动撑满）+ 底部信息栏，避免出现大片空白断层。 */
 
 :root {
-  --yz-accent: #3a69c7;
-  --yz-accent-dark: #2c53a0;
-  --yz-accent-soft: rgba(58, 105, 199, 0.1);
+  --yz-accent: #1f8a5f;
+  --yz-accent-dark: #17724d;
+  --yz-accent-soft: rgba(31, 138, 95, 0.1);
   --yz-workspace: #eff0f4; /* 与 Decap 自身工作区底色一致，接缝不可见 */
   --yz-bar: #ffffff;
   --yz-text: #2b2b2b;
@@ -243,4 +243,16 @@ body {
     padding: 8px 14px;
     font-size: 0.76rem;
   }
+}
+/* ---------- 配色跟随博客（晴蓝）---------- */
+
+html.sky {
+  --yz-accent: #3a69c7;
+  --yz-accent-dark: #2c53a0;
+  --yz-accent-soft: rgba(58, 105, 199, 0.1);
+  --yz-workspace: #eff0f4;
+  --yz-bar: #ffffff;
+  --yz-text: #262a33;
+  --yz-soft: #666e7d;
+  --yz-line: #e1e5ec;
 }

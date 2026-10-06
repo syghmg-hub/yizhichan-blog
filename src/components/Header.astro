@@ -26,6 +26,18 @@ const isActive = (href: string) =>
           {item.label}
         </a>
       ))}
+      <button
+        id="palette-toggle"
+        class="nav-link palette-toggle"
+        type="button"
+        aria-label="切换配色：蝉绿或晴蓝"
+        title="切换配色（蝉绿 / 晴蓝）"
+      >
+        <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true">
+          <circle cx="12" cy="12" r="8.6" fill="none" stroke="currentColor" stroke-width="1.6" />
+          <path d="M12 3.4a8.6 8.6 0 0 1 0 17.2z" fill="currentColor" />
+        </svg>
+      </button>
       <button id="theme-toggle" class="nav-link theme-toggle" type="button" aria-label="切换深色模式" title="切换深色模式">
         <svg class="icon-sun" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
           <circle cx="12" cy="12" r="4.2" />
@@ -40,9 +52,21 @@ const isActive = (href: string) =>
 </header>
 
 <script>
-  const btn = document.getElementById('theme-toggle');
-  btn?.addEventListener('click', () => {
-    const isDark = document.documentElement.classList.toggle('dark');
+  const root = document.documentElement;
+
+  // 深色模式
+  const themeBtn = document.getElementById('theme-toggle');
+  themeBtn?.addEventListener('click', () => {
+    const isDark = root.classList.toggle('dark');
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  });
+
+  // 配色：蝉绿（默认）↔ 晴蓝，同时同步站点图标
+  const paletteBtn = document.getElementById('palette-toggle');
+  paletteBtn?.addEventListener('click', () => {
+    const isSky = root.classList.toggle('sky');
+    localStorage.setItem('palette', isSky ? 'sky' : 'green');
+    const favicon = document.getElementById('site-favicon');
+    if (favicon) favicon.href = isSky ? '/favicon-blue.svg' : '/favicon.svg';
   });
 </script>

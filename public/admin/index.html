@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow" />
     <title>一只蝉 · 写作后台</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" id="site-favicon" />
     <!-- 用绝对路径指定配置文件：避免访问 /admin（无斜杠）时相对路径解析错误 -->
     <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
     <link rel="stylesheet" href="/admin/admin.css" />
@@ -36,6 +36,15 @@
     <!-- turbo-github 后端仅在 beta 版发布，因此必须用 beta 版 Decap；固定具体版本号避免 beta 升级带来破坏性变更 -->
     <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.17.0-beta.2/dist/decap-cms.js"></script>
     <script>
+      // 后台配色跟随博客：读取博客保存的配色选择（green 默认 / sky 晴蓝）
+      (function () {
+        if (localStorage.getItem('palette') === 'sky') {
+          document.documentElement.classList.add('sky');
+          var f = document.getElementById('site-favicon');
+          if (f) f.href = '/favicon-blue.svg';
+        }
+      })();
+
       // Decap 挂载完成后移除加载占位，避免它一直占着页面顶部
       (function () {
         var boot = document.getElementById('cms-boot');

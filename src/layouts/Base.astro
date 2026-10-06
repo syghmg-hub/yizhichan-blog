@@ -23,7 +23,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" id="site-favicon" />
     <link rel="alternate" type="application/rss+xml" title={siteConfig.title} href="/rss.xml" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={pageTitle} />
@@ -32,11 +32,17 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:card" content="summary" />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <script is:inline>
+      // 在首帧渲染前应用主题与配色，避免闪白
       (function () {
-        const stored = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (stored === 'dark' || (!stored && prefersDark)) {
-          document.documentElement.classList.add('dark');
+        var d = document.documentElement;
+        var stored = localStorage.getItem('theme');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (stored === 'dark' || (!stored && prefersDark)) d.classList.add('dark');
+        // 配色：green（默认，蝉绿）| sky（晴蓝）
+        if (localStorage.getItem('palette') === 'sky') {
+          d.classList.add('sky');
+          var f = document.getElementById('site-favicon');
+          if (f) f.href = '/favicon-blue.svg';
         }
       })();
     </script>

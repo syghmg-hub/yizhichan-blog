@@ -1,9 +1,28 @@
-/* 配色说明（蓝色协调版）
-   Decap 后台主色为 #3a69c7，博客改用同一色系以消除蓝绿混色。
-   如需回退绿色版，把下面三处改回即可：
-     light accent  #1f8a5f / dark accent #4cc38a / favicon 底色 #1f8a5f
+/* ================= 配色系统 =================
+   两套配色可切换（导航栏右侧调色盘按钮）：
+     蝉绿（默认）= :root
+     晴蓝        = html.sky
+   每套各有浅色/深色两种模式，组合共 4 种：
+     :root / html.sky / html.dark / html.dark.sky
+   配色选择存在 localStorage.palette，主题明暗存在 localStorage.theme。
 */
 :root {
+  --bg: #faf9f6;
+  --bg-soft: #f1efe9;
+  --bg-card: #ffffff;
+  --text: #2b2b2b;
+  --text-soft: #6b6b6b;
+  --border: #e5e2da;
+  --accent: #1f8a5f;
+  --accent-dark: #17724d;
+  --accent-soft: rgba(31, 138, 95, 0.1);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --radius: 10px;
+  --content-width: 720px;
+}
+
+/* 晴蓝 · 浅色（与写作后台 Decap 主色 #3a69c7 同色系） */
+html.sky {
   --bg: #f8f9fb;
   --bg-soft: #eef1f6;
   --bg-card: #ffffff;
@@ -14,11 +33,24 @@
   --accent-dark: #2c53a0;
   --accent-soft: rgba(58, 105, 199, 0.1);
   --shadow: 0 1px 3px rgba(24, 33, 51, 0.07);
-  --radius: 10px;
-  --content-width: 720px;
 }
 
+/* 蝉绿 · 深色 */
 html.dark {
+  --bg: #14161a;
+  --bg-soft: #1c1f25;
+  --bg-card: #1c1f25;
+  --text: #d8d8d5;
+  --text-soft: #9a9a95;
+  --border: #2b2f36;
+  --accent: #4cc38a;
+  --accent-dark: #7ad4a8;
+  --accent-soft: rgba(76, 195, 138, 0.12);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* 晴蓝 · 深色（放在最后，确保优先级最高） */
+html.dark.sky {
   --bg: #14171d;
   --bg-soft: #1c212a;
   --bg-card: #1c212a;
