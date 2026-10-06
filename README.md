@@ -11,7 +11,7 @@
 
 **方式二：直接改文件**
 
-1. 在 `src/content/posts/随笔/`（或 `技术笔记/`）里新建 `.md` 文件，文件名即文章标题
+1. 在 `src/content/posts/随笔/`（或 `项目经验/`）里新建 `.md` 文件，文件名即文章标题
 2. 文件开头写信息：
 
 ```markdown
@@ -42,7 +42,7 @@ tags: [随笔, 随想]
 后台配置要点：
 
 - 界面语言 `locale: zh_Hans`
-- 两个栏目分别对应 `src/content/posts/随笔` 与 `src/content/posts/技术笔记`
+- 两个栏目分别对应 `src/content/posts/随笔` 与 `src/content/posts/项目经验`
 - `category` 是隐藏字段，按栏目自动填写，手动不用管
 - `backend` 段决定登录方式：托管登录（Decap Turbo）填 `turbo_site_id`；自托管用 `github` + OAuth 中转
 - 改完 `config.yml` 需要 `npm run build` 并推送才生效

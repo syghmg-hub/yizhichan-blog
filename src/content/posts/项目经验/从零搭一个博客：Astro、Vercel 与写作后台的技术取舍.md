@@ -2,7 +2,8 @@
 title: 如何零成本搭一个个人博客
 description: 用 AI 辅助、零预算、零服务器，从选型到上线完整复盘一次个人博客的搭建。
 date: 2026-10-06
-category: 技术笔记
+slug: ji-shu-bi-ji-cong-ling-da-yi-ge-bo-ke-astrovercel-yu-xie-zuo-hou-tai-de-ji-shu-qu-she
+category: 项目经验
 tags:
   - Astro
   - Vercel

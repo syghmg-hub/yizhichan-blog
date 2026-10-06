@@ -149,10 +149,10 @@ collections:
         help: 数字越小越靠前；留空按 100 处理
 
   - name: posts_tech
-    label: 技术笔记
-    label_singular: 技术笔记
-    description: 技术总结、踩坑记录、使用规范
-    folder: 'src/content/posts/技术笔记'
+    label: 项目经验
+    label_singular: 项目经验
+    description: 项目复盘、技术总结、踩坑记录
+    folder: 'src/content/posts/项目经验'
     create: true
     delete: true
     extension: md
@@ -185,7 +185,7 @@ collections:
       - label: 栏目
         name: category
         widget: hidden
-        default: 技术笔记
+        default: 项目经验
       - label: 标签
         name: tags
         widget: list
