@@ -206,29 +206,8 @@ html.dark .theme-toggle .icon-sun {
   flex: 0 0 auto;
 }
 
-.site-footer .footer-inner {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 18px;
-  align-items: center;
-  justify-content: space-between;
-}
-
 .site-footer p {
   margin: 0;
-}
-
-.footer-links {
-  display: flex;
-  gap: 16px;
-}
-
-.footer-links a {
-  color: var(--text-soft);
-}
-
-.footer-links a:hover {
-  color: var(--accent);
 }
 
 /* ---------- Page heading ---------- */
