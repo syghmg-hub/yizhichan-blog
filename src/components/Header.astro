@@ -25,9 +25,14 @@ const isActive = (href: string) =>
           {item.label}
         </a>
       ))}
-      <button id="theme-toggle" class="nav-link theme-toggle" type="button" aria-label="切换深色模式">
-        <span class="icon-light">☀️</span>
-        <span class="icon-dark">🌙</span>
+      <button id="theme-toggle" class="nav-link theme-toggle" type="button" aria-label="切换深色模式" title="切换深色模式">
+        <svg class="icon-sun" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.2" />
+          <path d="M12 2.4v2.2M12 19.4v2.2M2.4 12h2.2M19.4 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6" />
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20.5 14.2A8.4 8.4 0 1 1 9.8 3.5a6.6 6.6 0 0 0 10.7 10.7z" />
+        </svg>
       </button>
     </nav>
   </div>

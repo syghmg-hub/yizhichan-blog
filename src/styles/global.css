@@ -41,6 +41,14 @@ body {
   font-size: 16px;
   line-height: 1.75;
   -webkit-font-smoothing: antialiased;
+  /* 页面骨架：内容不足一屏时页脚吸底，不留悬空空白 */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main.container {
+  flex: 1 0 auto;
 }
 
 .container {
@@ -125,22 +133,63 @@ img {
   font-weight: 600;
 }
 
-.theme-toggle .icon-dark { display: none; }
-html.dark .theme-toggle .icon-dark { display: inline; }
-html.dark .theme-toggle .icon-light { display: none; }
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-soft);
+}
+
+.theme-toggle svg {
+  display: block;
+}
+
+.theme-toggle .icon-moon {
+  display: none;
+}
+
+html.dark .theme-toggle .icon-moon {
+  display: block;
+}
+
+html.dark .theme-toggle .icon-sun {
+  display: none;
+}
 
 /* ---------- Footer ---------- */
 
 .site-footer {
-  margin-top: 80px;
+  margin-top: auto;
   border-top: 1px solid var(--border);
-  padding: 28px 0;
+  padding: 24px 0;
   color: var(--text-soft);
   font-size: 0.88rem;
+  flex: 0 0 auto;
+}
+
+.site-footer .footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .site-footer p {
   margin: 0;
+}
+
+.footer-links {
+  display: flex;
+  gap: 16px;
+}
+
+.footer-links a {
+  color: var(--text-soft);
+}
+
+.footer-links a:hover {
+  color: var(--accent);
 }
 
 /* ---------- Page heading ---------- */
@@ -162,20 +211,57 @@ html.dark .theme-toggle .icon-light { display: none; }
 /* ---------- Post card ---------- */
 
 .post-card {
-  padding: 26px 0;
+  position: relative;
+  padding: 26px 18px;
+  margin: 0 -18px;
+  border-radius: 12px;
   border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background-color 0.18s ease;
 }
 
 .post-card:last-child {
   border-bottom: none;
 }
 
+.post-card:hover {
+  background: var(--bg-card);
+}
+
+/* 让整张卡片可点击，同时保证标签链接仍可单独点击 */
+.post-card-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+}
+
+.post-card:hover .post-card-title {
+  color: var(--accent);
+}
+
+.post-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  position: relative;
+  z-index: 1;
+}
+
 .post-card-meta {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   align-items: center;
   color: var(--text-soft);
   font-size: 0.85rem;
+}
+
+.meta-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.5;
 }
 
 .post-card-title {
@@ -331,7 +417,9 @@ html.dark .theme-toggle .icon-light { display: none; }
   background: var(--bg-soft);
 }
 
-.article-body code:not([class*='language-']):not(.ec-code) {
+/* 只作用于行内代码：用 :not(pre) > 排除代码块内部的 code
+   （否则会命中 expressive-code 的块级 code，覆盖其深色背景导致文字看不清） */
+.article-body :not(pre) > code {
   background: var(--bg-soft);
   padding: 2px 6px;
   border-radius: 5px;

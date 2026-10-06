@@ -72,6 +72,19 @@ import Base from '../layouts/Base.astro';
       <a href="https://github.com/syghmg-hub/yizhichan-blog/commits/main">GitHub 提交历史</a>
       里，写错了可以随时找回来。
     </blockquote>
+
+    <h2>相册怎么加照片</h2>
+    <ol>
+      <li>把照片放进 <code>public/uploads/</code>（或 <code>public/gallery/</code>）目录</li>
+      <li>在 <code>src/data/photos.ts</code> 里按同样格式加一行：标题、日期、文件名</li>
+      <li>推送后约 1 分钟上线</li>
+    </ol>
+    <p>如果你更想用后台管理，可以直接在文章里插图，相册页面的列表我也可以改成从后台读取。</p>
+
+    <h2>关于页的信息</h2>
+    <p>
+      「关于」页里的邮箱、简介在 <code>src/pages/about.astro</code> 里改，改完推送即可。
+    </p>
   </article>
 </Base>
 

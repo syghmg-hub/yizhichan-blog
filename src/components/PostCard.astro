@@ -11,20 +11,19 @@ interface Props {
 }
 
 const { title, description, date, category, tags, href } = Astro.props;
-const dateStr = date.toLocaleDateString('zh-CN', {
-  year: 'numeric',
-  month: '2-digit',
-  day: '2-digit',
-});
+
+// 全站统一日期格式：2026.10.06
+const dateStr = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
 ---
 
 <article class="post-card">
   <div class="post-card-meta">
     <span class="badge badge-category">{category}</span>
+    <span class="meta-dot" aria-hidden="true"></span>
     <time datetime={date.toISOString()}>{dateStr}</time>
   </div>
   <h2 class="post-card-title">
-    <a href={href}>{title}</a>
+    <a href={href} class="post-card-link">{title}</a>
   </h2>
   {description && <p class="post-card-desc">{description}</p>}
   {tags.length > 0 && (
