@@ -6,6 +6,8 @@
     <meta name="robots" content="noindex, nofollow" />
     <title>一只蝉 · 写作后台</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- 用绝对路径指定配置文件：避免访问 /admin（无斜杠）时相对路径解析错误 -->
+    <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
     <style>
       body {
         margin: 0;
