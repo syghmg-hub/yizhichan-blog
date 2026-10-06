@@ -1,0 +1,105 @@
+---
+import Base from '../layouts/Base.astro';
+import { siteConfig } from '../config';
+
+const feedUrl = new URL(siteConfig.rssPath, Astro.site).href;
+---
+
+<Base title="RSS 订阅" description="用 RSS 订阅一只蝉的新文章">
+  <header class="page-header">
+    <h1>RSS 订阅</h1>
+    <p>新文章发布时，订阅器会自动收到通知</p>
+  </header>
+
+  <article class="article-body">
+    <h2>第一步：复制订阅地址</h2>
+    <div class="rss-box">
+      <code id="rss-url">{feedUrl}</code>
+      <button type="button" class="copy-btn" id="copy-rss">复制</button>
+    </div>
+    <p><span id="copy-tip" class="copy-tip" role="status"></span></p>
+
+    <h2>第二步：放进阅读器</h2>
+    <p>RSS 是「订阅源」，浏览器本身不会显示它，需要一个阅读器来接收。手机上最省事的是这两个：</p>
+    <ul>
+      <li><strong>安卓 / 国产系统</strong>：安装「Rolly」或「阅读」（开源、免费），打开后选「添加订阅」→ 粘贴地址</li>
+      <li><strong>iPhone / iPad</strong>：用系统自带的「播客」App → 右上角「添加」→ 粘贴地址；或用「NetNewsWire」「Unread」</li>
+      <li><strong>电脑</strong>：Firefox / Edge 地址栏输入 <code>about:addons</code> 搜索并安装 <strong>Feedly</strong> 扩展，粘贴地址即可</li>
+    </ul>
+
+    <h2>为什么值得订阅</h2>
+    <ul>
+      <li>不用打开网站、不用刷朋友圈，新文章自己出现</li>
+      <li>内容存在你自己的阅读器里，网站关掉也还在</li>
+      <li>没有算法推荐，只有我自己写的字</li>
+    </ul>
+
+    <blockquote>
+      订阅源地址不会变：<code>{siteConfig.rssPath}</code>。收藏这个地址就够了。
+    </blockquote>
+  </article>
+</Base>
+
+<style>
+  .rss-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 12px 14px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .rss-box code {
+    flex: 1 1 260px;
+    word-break: break-all;
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+
+  .copy-btn {
+    flex: 0 0 auto;
+    padding: 7px 18px;
+    border: none;
+    border-radius: 8px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.9rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+  }
+
+  .copy-btn:hover {
+    opacity: 0.88;
+  }
+
+  .copy-tip {
+    color: var(--accent);
+    font-size: 0.88rem;
+  }
+</style>
+
+<script>
+  const btn = document.getElementById('copy-rss') as HTMLButtonElement;
+  const tip = document.getElementById('copy-tip') as HTMLElement;
+  const url = document.getElementById('rss-url')!.textContent!.trim();
+
+  btn?.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(url);
+      tip.textContent = '已复制，去阅读器里粘贴吧';
+    } catch {
+      // 剪贴板不可用时退回到手动选中
+      const range = document.createRange();
+      range.selectNodeContents(document.getElementById('rss-url')!);
+      const sel = window.getSelection()!;
+      sel.removeAllRanges();
+      sel.addRange(range);
+      tip.textContent = '已为你选中，按 Ctrl+C 复制';
+    }
+    setTimeout(() => (tip.textContent = ''), 4000);
+  });
+</script>

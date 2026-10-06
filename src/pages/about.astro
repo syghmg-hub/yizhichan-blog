@@ -1,5 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
+import { siteConfig } from '../config';
+
+const email = siteConfig.contactEmail.trim();
 ---
 
 <Base title="关于">
@@ -8,7 +11,7 @@ import Base from '../layouts/Base.astro';
   </header>
 
   <article class="article-body">
-    <p>
+    <p style="font-size:1.05rem">
       你好，这里是一只蝉的个人博客。
     </p>
     <p>
@@ -23,21 +26,36 @@ import Base from '../layouts/Base.astro';
       <li><strong>技术笔记</strong>：踩过的坑和整理出来的规范</li>
     </ul>
 
-    <h2>联系我</h2>
+    <h2>找到我</h2>
+    {email ? (
+      <p>
+        有话想说，可以写信给我：<a href={`mailto:${email}`}>{email}</a>
+      </p>
+    ) : (
+      <p class="contact-pending">
+        联系方式待补充。
+      </p>
+    )}
     <p>
-      如果你想交流，可以给文章留言，或者通过
-      <a href="mailto:hi@example.com">邮箱</a> 找到我。
+      也欢迎通过 <a href={siteConfig.rssPath}>RSS</a> 订阅，新文章会自动送到你的阅读器。
     </p>
-
-    <blockquote>
-      站点由 Astro 构建，部署在 Vercel，全部免费。<br />
-      把上面的邮箱换成你自己的，就正式开张了。
-    </blockquote>
 
     <h2>写作后台</h2>
     <p>
       我给自己搭了一个网页版写作后台，在浏览器里就能发文章、传图片，不用碰代码：
       <a href="/write/">查看使用说明</a> · <a href="/admin/">直接进入后台</a>
     </p>
+
+    <h2>关于这个站点</h2>
+    <p>
+      用 Astro 搭建，部署在 Vercel，免费运行。没有广告、没有统计追踪，
+      文章和图片都存在我自己的 GitHub 仓库里。
+    </p>
   </article>
 </Base>
+
+<style>
+  .contact-pending {
+    color: var(--text-soft);
+  }
+</style>
