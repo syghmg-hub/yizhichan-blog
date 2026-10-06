@@ -1,0 +1,236 @@
+/* 一只蝉 · 写作后台主题
+   说明：Decap v3 内部组件使用动态生成的类名，无法用类选择器精确覆写，
+   因此这里只做「元素级」安全调整（字体/圆角/边框/颜色），不改布局，避免破坏功能。 */
+
+:root {
+  --yz-accent: #1f8a5f;
+  --yz-accent-dark: #17724d;
+  --yz-accent-soft: rgba(31, 138, 95, 0.1);
+  --yz-bg: #f7f5f0;
+  --yz-card: #ffffff;
+  --yz-text: #2b2b2b;
+  --yz-soft: #6b6b6b;
+  --yz-line: #e3e0d8;
+  --yz-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+}
+
+body {
+  background: var(--yz-bg);
+  color: var(--yz-text);
+}
+
+/* ---------- 自建品牌头部 ---------- */
+
+.cms-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 20px;
+  height: 54px;
+  background: var(--yz-card);
+  border-bottom: 1px solid var(--yz-line);
+  font-family: var(--yz-font);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.cms-head a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cms-brand {
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.cms-brand .mark {
+  color: var(--yz-accent);
+  margin-right: 2px;
+}
+
+.cms-head-title {
+  color: var(--yz-soft);
+  font-size: 0.86rem;
+  padding-left: 14px;
+  border-left: 1px solid var(--yz-line);
+}
+
+.cms-head nav {
+  margin-left: auto;
+  display: flex;
+  gap: 6px;
+}
+
+.cms-head nav a {
+  font-size: 0.86rem;
+  color: var(--yz-soft);
+  padding: 5px 11px;
+  border-radius: 7px;
+}
+
+.cms-head nav a:hover {
+  color: var(--yz-accent);
+  background: var(--yz-accent-soft);
+  text-decoration: none;
+}
+
+.cms-tip {
+  font-family: var(--yz-font);
+  max-width: 1080px;
+  margin: 18px auto 0;
+  padding: 12px 18px;
+  background: var(--yz-accent-soft);
+  border: 1px solid rgba(31, 138, 95, 0.22);
+  border-radius: 10px;
+  color: #2f5c48;
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+.cms-tip b {
+  color: var(--yz-accent-dark);
+}
+
+/* ---------- 加载占位（挂载后自动移除）---------- */
+
+#cms-boot {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: var(--yz-bg);
+  z-index: 40;
+  font-family: var(--yz-font);
+  color: var(--yz-soft);
+  font-size: 0.92rem;
+}
+
+#cms-boot .dot {
+  width: 30px;
+  height: 30px;
+  border: 3px solid #dfe6e1;
+  border-top-color: var(--yz-accent);
+  border-radius: 50%;
+  animation: yz-spin 0.8s linear infinite;
+}
+
+@keyframes yz-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#cms-boot a {
+  color: var(--yz-accent);
+}
+
+/* ---------- Decap 界面元素级微调 ---------- */
+
+#nc-root,
+#nc-root input,
+#nc-root textarea,
+#nc-root select,
+#nc-root button {
+  font-family: var(--yz-font) !important;
+}
+
+/* 字号略放大、行距更松，中文阅读更舒服 */
+#nc-root {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--yz-text);
+}
+
+#nc-root p,
+#nc-root li {
+  line-height: 1.8;
+}
+
+/* 圆角统一，弱化生硬的直角 */
+#nc-root button,
+#nc-root input,
+#nc-root select,
+#nc-root textarea {
+  border-radius: 8px !important;
+}
+
+/* 输入控件：细边框 + 品牌色聚焦光环 */
+#nc-root input[type='text'],
+#nc-root input[type='email'],
+#nc-root input[type='password'],
+#nc-root input[type='date'],
+#nc-root input[type='search'],
+#nc-root textarea,
+#nc-root select {
+  border: 1px solid var(--yz-line) !important;
+  background: #fff !important;
+  color: var(--yz-text) !important;
+  padding: 8px 11px !important;
+}
+
+#nc-root input:focus,
+#nc-root textarea:focus,
+#nc-root select:focus {
+  outline: none !important;
+  border-color: var(--yz-accent) !important;
+  box-shadow: 0 0 0 3px var(--yz-accent-soft) !important;
+}
+
+#nc-root ::placeholder {
+  color: #a8a8a2;
+}
+
+/* 链接统一品牌色 */
+#nc-root a {
+  color: var(--yz-accent);
+}
+
+#nc-root a:hover {
+  color: var(--yz-accent-dark);
+}
+
+/* 标题层级更清晰 */
+#nc-root h1,
+#nc-root h2,
+#nc-root h3 {
+  color: var(--yz-text);
+  letter-spacing: 0.01em;
+}
+
+/* 去掉按钮/输入框默认的硬阴影，避免脏兮兮的立体感 */
+#nc-root button {
+  box-shadow: none !important;
+  transition: background-color 0.15s ease, opacity 0.15s ease;
+}
+
+/* 正文编辑区（textarea）最小高度，保证可读 */
+#nc-root textarea {
+  min-height: 320px;
+  line-height: 1.9;
+}
+
+/* 移动端：留出足够点击区域 */
+@media (max-width: 700px) {
+  .cms-head {
+    height: auto;
+    padding: 10px 14px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .cms-head-title {
+    border-left: none;
+    padding-left: 0;
+  }
+
+  .cms-tip {
+    margin: 12px 12px 0;
+  }
+}
