@@ -308,13 +308,20 @@ html.dark .theme-toggle .icon-sun {
 }
 
 .badge-tag {
-  background: var(--bg-soft);
-  color: var(--text-soft);
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+  border: 1px solid transparent;
+  transition: border-color 0.15s ease, color 0.15s ease;
 }
 
 .badge-tag:hover {
-  color: var(--accent);
+  color: var(--accent-dark);
+  border-color: var(--accent);
   text-decoration: none;
+}
+
+html.dark .badge-tag {
+  color: var(--accent);
 }
 
 /* ---------- Filter tabs ---------- */
@@ -369,15 +376,23 @@ html.dark .theme-toggle .icon-sun {
 }
 
 .article-body h2 {
-  margin-top: 2.2em;
-  padding-bottom: 0.3em;
+  margin-top: 1.7em;
+  margin-bottom: 0.6em;
+  padding-bottom: 0.25em;
   border-bottom: 1px solid var(--border);
-  font-size: 1.4rem;
+  font-size: 1.35rem;
+  line-height: 1.4;
+}
+
+.article-body h2:first-child {
+  margin-top: 0;
 }
 
 .article-body h3 {
-  margin-top: 1.8em;
-  font-size: 1.15rem;
+  margin-top: 1.5em;
+  margin-bottom: 0.4em;
+  font-size: 1.12rem;
+  line-height: 1.5;
 }
 
 .article-body blockquote {
@@ -451,32 +466,7 @@ html.dark .theme-toggle .icon-sun {
 }
 
 /* ---------- Gallery ---------- */
-
-.gallery-grid {
-  columns: 3 220px;
-  column-gap: 14px;
-  margin-top: 28px;
-}
-
-.gallery-item {
-  break-inside: avoid;
-  margin-bottom: 14px;
-  border-radius: var(--radius);
-  overflow: hidden;
-  background: var(--bg-soft);
-  box-shadow: var(--shadow);
-}
-
-.gallery-item img {
-  display: block;
-  width: 100%;
-}
-
-.gallery-caption {
-  padding: 8px 12px;
-  font-size: 0.84rem;
-  color: var(--text-soft);
-}
+/* 相册的具体样式已收敛到 src/pages/gallery.astro（包含灯箱），此处不再重复定义 */
 
 /* ---------- Misc ---------- */
 
@@ -503,6 +493,47 @@ html.dark .theme-toggle .icon-sun {
 @media (max-width: 640px) {
   .hero h1 { font-size: 1.7rem; }
   .article-header h1 { font-size: 1.55rem; }
-  .gallery-grid { columns: 2 150px; }
-  .nav-link { padding: 6px 7px; font-size: 0.86rem; }
+}
+
+/* 移动端导航精简：品牌只保留音符图标，导航项紧凑排列，避免 390px 下拥挤 */
+@media (max-width: 560px) {
+  .header-inner {
+    height: 52px;
+    gap: 8px;
+  }
+
+  .brand {
+    font-size: 0;
+    display: inline-flex;
+    align-items: center;
+    flex: 0 0 auto;
+  }
+
+  .brand-mark {
+    font-size: 1.25rem;
+    margin-right: 0;
+  }
+
+  .nav {
+    gap: 0;
+    min-width: 0;
+  }
+
+  .nav-link {
+    padding: 6px 8px;
+    font-size: 0.84rem;
+    letter-spacing: 0;
+  }
+
+  .theme-toggle {
+    padding: 6px;
+  }
+}
+
+/* 极窄屏（320px 级）进一步压缩 */
+@media (max-width: 360px) {
+  .nav-link {
+    padding: 6px 6px;
+    font-size: 0.8rem;
+  }
 }

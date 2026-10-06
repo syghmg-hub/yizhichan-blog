@@ -51,40 +51,54 @@ const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
 </Base>
 
 <style is:global>
+  /* 轻量目录：左侧细竖线 + 双列排布，不再占用大块视觉重量 */
   .article-toc {
-    background: var(--bg-soft);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px 20px;
-    margin-bottom: 32px;
-    font-size: 0.92rem;
+    margin: 0 0 34px;
+    padding: 2px 0 2px 16px;
+    border-left: 2px solid var(--accent-soft);
+    font-size: 0.86rem;
   }
 
   .article-toc strong {
     display: block;
     margin-bottom: 8px;
     color: var(--text);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    font-weight: 600;
   }
 
   .article-toc ul {
     margin: 0;
-    padding-left: 18px;
+    padding: 0;
+    list-style: none;
+    columns: 2;
+    column-gap: 24px;
   }
 
   .article-toc li {
-    margin: 3px 0;
+    margin: 4px 0;
+    break-inside: avoid;
   }
 
   .article-toc li.depth-3 {
-    padding-left: 16px;
-    font-size: 0.88rem;
+    padding-left: 14px;
+    font-size: 0.82rem;
   }
 
   .article-toc a {
     color: var(--text-soft);
+    display: block;
+    line-height: 1.55;
   }
 
   .article-toc a:hover {
     color: var(--accent);
+  }
+
+  @media (max-width: 560px) {
+    .article-toc ul {
+      columns: 1;
+    }
   }
 </style>

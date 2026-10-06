@@ -12,7 +12,15 @@ import Base from '../layouts/Base.astro';
   <div class="gallery-grid">
     {photos.map((photo) => (
       <figure class="gallery-item">
-        <img src={photo.src} alt={photo.title} loading="lazy" />
+        <button
+          class="gallery-btn"
+          type="button"
+          data-src={photo.src}
+          data-caption={`${photo.title} · ${photo.date}`}
+          aria-label={`放大查看：${photo.title}`}
+        >
+          <img src={photo.src} alt={photo.title} loading="lazy" />
+        </button>
         <figcaption class="gallery-caption">
           {photo.title} · {photo.date}
         </figcaption>
@@ -20,3 +28,155 @@ import Base from '../layouts/Base.astro';
     ))}
   </div>
 </Base>
+
+<!-- 灯箱 -->
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lightbox-close" type="button" aria-label="关闭">✕</button>
+  <figure class="lightbox-inner">
+    <img id="lightbox-img" src="" alt="" />
+    <figcaption id="lightbox-caption"></figcaption>
+  </figure>
+</div>
+
+<style>
+  /* 瀑布流：容器 680px 可容纳 2 列 300px，用 2 列填满宽度更协调 */
+  .gallery-grid {
+    columns: 2 260px;
+    column-gap: 16px;
+    margin-top: 28px;
+  }
+
+  .gallery-item {
+    break-inside: avoid;
+    margin: 0 0 16px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--bg-card);
+    box-shadow: var(--shadow);
+  }
+
+  .gallery-btn {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: zoom-in;
+    line-height: 0;
+  }
+
+  .gallery-btn img {
+    display: block;
+    width: 100%;
+    transition: transform 0.35s ease, opacity 0.2s ease;
+  }
+
+  .gallery-item:hover .gallery-btn img {
+    transform: scale(1.03);
+    opacity: 0.92;
+  }
+
+  .gallery-caption {
+    padding: 9px 14px;
+    font-size: 0.84rem;
+    color: var(--text-soft);
+    border-top: 1px solid var(--border);
+  }
+
+  /* 灯箱 */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    background: rgba(12, 14, 16, 0.92);
+    backdrop-filter: blur(3px);
+  }
+
+  .lightbox[hidden] {
+    display: none;
+  }
+
+  .lightbox-inner {
+    margin: 0;
+    max-width: 100%;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .lightbox-inner img {
+    max-width: 100%;
+    max-height: 82vh;
+    width: auto;
+    border-radius: 8px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  .lightbox-inner figcaption {
+    color: #e8e8e4;
+    font-size: 0.9rem;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 18px;
+    right: 22px;
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  .lightbox-close:hover {
+    background: rgba(255, 255, 255, 0.26);
+  }
+
+  @media (max-width: 560px) {
+    .gallery-grid {
+      columns: 1;
+    }
+  }
+</style>
+
+<script>
+  const box = document.getElementById('lightbox') as HTMLElement;
+  const img = document.getElementById('lightbox-img') as HTMLImageElement;
+  const cap = document.getElementById('lightbox-caption') as HTMLElement;
+  const closeBtn = box.querySelector('.lightbox-close') as HTMLButtonElement;
+
+  function open(src: string, caption: string) {
+    img.src = src;
+    img.alt = caption;
+    cap.textContent = caption;
+    box.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    box.hidden = true;
+    img.src = '';
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('.gallery-btn').forEach((btn) => {
+    btn.addEventListener('click', () => open(btn.dataset.src!, btn.dataset.caption!));
+  });
+
+  closeBtn.addEventListener('click', close);
+  box.addEventListener('click', (e) => {
+    if (e.target === box) close();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !box.hidden) close();
+  });
+</script>
