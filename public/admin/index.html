@@ -14,25 +14,18 @@
       html,
       body {
         margin: 0;
-        background: #f7f5f0;
+        background: #eff0f4;
       }
     </style>
   </head>
   <body>
     <header class="cms-head">
       <a class="cms-brand" href="/"><span class="mark">♪</span> 一只蝉</a>
-      <span class="cms-head-title">写作后台</span>
       <nav>
         <a href="/write/">使用说明</a>
         <a href="/">返回博客</a>
       </nav>
     </header>
-
-    <p class="cms-tip">
-      <b>怎么发文章：</b>左侧选「随笔」或「技术笔记」→ 点「新增」→ 填标题和摘要 → 在正文框里写（支持 Markdown，
-      <code>## 标题</code>、<code>**加粗**</code>、<code>- 列表</code>）→ 插图用正文框上方工具栏的「图片」按钮 →
-      点「保存」→ 等约 1 分钟线上自动更新。手机浏览器也能用。
-    </p>
 
     <div id="cms-boot">
       <div class="dot"></div>
@@ -66,5 +59,10 @@
         setTimeout(remove, 20000);
       })();
     </script>
+
+    <footer class="cms-foot">
+      <span>一只蝉 · 写作后台</span>
+      <a href="/write/">怎么发文章？看使用说明</a>
+    </footer>
   </body>
 </html>

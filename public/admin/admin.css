@@ -1,13 +1,14 @@
 /* 一只蝉 · 写作后台主题
-   说明：Decap v3 内部组件使用动态生成的类名，无法用类选择器精确覆写，
-   因此这里只做「元素级」安全调整（字体/圆角/边框/颜色），不改布局，避免破坏功能。 */
+   思路：Decap v3 内部组件使用动态生成的类名，无法用类选择器精确覆写，
+        因此只用「元素级」安全调整（字体/圆角/边框/颜色），并做一层应用外壳：
+        顶部品牌栏 + 中间工作区（自动撑满）+ 底部信息栏，避免出现大片空白断层。 */
 
 :root {
   --yz-accent: #1f8a5f;
   --yz-accent-dark: #17724d;
   --yz-accent-soft: rgba(31, 138, 95, 0.1);
-  --yz-bg: #f7f5f0;
-  --yz-card: #ffffff;
+  --yz-workspace: #eff0f4; /* 与 Decap 自身工作区底色一致，接缝不可见 */
+  --yz-bar: #ffffff;
   --yz-text: #2b2b2b;
   --yz-soft: #6b6b6b;
   --yz-line: #e3e0d8;
@@ -15,20 +16,34 @@
     'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
 }
 
+html,
 body {
-  background: var(--yz-bg);
-  color: var(--yz-text);
+  margin: 0;
+  /* 与 Decap 运行时注入的背景保持一致，避免上下两截颜色不同 */
+  background: var(--yz-workspace) !important;
 }
 
-/* ---------- 自建品牌头部 ---------- */
+/* 应用外壳：顶栏 + 工作区（撑满）+ 底栏 */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#nc-root {
+  flex: 1 0 auto;
+}
+
+/* ---------- 顶部品牌栏 ---------- */
 
 .cms-head {
   display: flex;
   align-items: center;
   gap: 14px;
   padding: 0 20px;
-  height: 54px;
-  background: var(--yz-card);
+  height: 50px;
+  flex: 0 0 auto;
+  background: var(--yz-bar);
   border-bottom: 1px solid var(--yz-line);
   font-family: var(--yz-font);
   position: sticky;
@@ -42,7 +57,7 @@ body {
 }
 
 .cms-brand {
-  font-size: 1.02rem;
+  font-size: 0.98rem;
   font-weight: 700;
   letter-spacing: 0.04em;
 }
@@ -52,13 +67,6 @@ body {
   margin-right: 2px;
 }
 
-.cms-head-title {
-  color: var(--yz-soft);
-  font-size: 0.86rem;
-  padding-left: 14px;
-  border-left: 1px solid var(--yz-line);
-}
-
 .cms-head nav {
   margin-left: auto;
   display: flex;
@@ -66,7 +74,7 @@ body {
 }
 
 .cms-head nav a {
-  font-size: 0.86rem;
+  font-size: 0.85rem;
   color: var(--yz-soft);
   padding: 5px 11px;
   border-radius: 7px;
@@ -78,21 +86,30 @@ body {
   text-decoration: none;
 }
 
-.cms-tip {
+/* ---------- 底部信息栏 ---------- */
+
+.cms-foot {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 20px;
+  background: var(--yz-bar);
+  border-top: 1px solid var(--yz-line);
+  color: var(--yz-soft);
   font-family: var(--yz-font);
-  max-width: 1080px;
-  margin: 18px auto 0;
-  padding: 12px 18px;
-  background: var(--yz-accent-soft);
-  border: 1px solid rgba(31, 138, 95, 0.22);
-  border-radius: 10px;
-  color: #2f5c48;
-  font-size: 0.88rem;
-  line-height: 1.7;
+  font-size: 0.8rem;
 }
 
-.cms-tip b {
-  color: var(--yz-accent-dark);
+.cms-foot a {
+  color: var(--yz-soft);
+  text-decoration: none;
+}
+
+.cms-foot a:hover {
+  color: var(--yz-accent);
+  text-decoration: underline;
 }
 
 /* ---------- 加载占位（挂载后自动移除）---------- */
@@ -105,7 +122,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 14px;
-  background: var(--yz-bg);
+  background: var(--yz-workspace);
   z-index: 40;
   font-family: var(--yz-font);
   color: var(--yz-soft);
@@ -115,7 +132,7 @@ body {
 #cms-boot .dot {
   width: 30px;
   height: 30px;
-  border: 3px solid #dfe6e1;
+  border: 3px solid #dcdfe6;
   border-top-color: var(--yz-accent);
   border-radius: 50%;
   animation: yz-spin 0.8s linear infinite;
@@ -204,7 +221,7 @@ body {
   letter-spacing: 0.01em;
 }
 
-/* 去掉按钮/输入框默认的硬阴影，避免脏兮兮的立体感 */
+/* 去掉按钮默认硬阴影，避免脏兮兮的立体感 */
 #nc-root button {
   box-shadow: none !important;
   transition: background-color 0.15s ease, opacity 0.15s ease;
@@ -216,21 +233,14 @@ body {
   line-height: 1.9;
 }
 
-/* 移动端：留出足够点击区域 */
+/* 移动端适配 */
 @media (max-width: 700px) {
   .cms-head {
-    height: auto;
-    padding: 10px 14px;
-    flex-wrap: wrap;
-    gap: 8px;
+    padding: 9px 14px;
   }
 
-  .cms-head-title {
-    border-left: none;
-    padding-left: 0;
-  }
-
-  .cms-tip {
-    margin: 12px 12px 0;
+  .cms-foot {
+    padding: 8px 14px;
+    font-size: 0.76rem;
   }
 }
