@@ -1,9 +1,9 @@
 ---
-const year = new Date().getFullYear();
+import { siteConfig } from '../config';
 ---
 
 <footer class="site-footer">
   <div class="container">
-    <p>© {year} 一只蝉</p>
+    <p>@{siteConfig.author}</p>
   </div>
 </footer>
