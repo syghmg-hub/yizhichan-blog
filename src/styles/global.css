@@ -495,13 +495,15 @@ html.dark .badge-tag {
   color: var(--text-soft);
 }
 
+/* 首页标题区：与 .page-header 使用同一套间距和字号，
+   这样在首页与各内页之间切换时标题位置不会跳动 */
 .hero {
-  margin: 56px 0 8px;
+  margin: 48px 0 8px;
 }
 
 .hero h1 {
-  margin: 0 0 10px;
-  font-size: 2.2rem;
+  margin: 0 0 8px;
+  font-size: 1.8rem;
 }
 
 .hero p {
@@ -511,6 +513,7 @@ html.dark .badge-tag {
 
 @media (max-width: 640px) {
   .hero h1 { font-size: 1.7rem; }
+  .page-header h1 { font-size: 1.7rem; }
   .article-header h1 { font-size: 1.55rem; }
 }
 
