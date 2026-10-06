@@ -1,9 +1,15 @@
 ---
-title: 从零搭一个博客：Astro、Vercel 与写作后台的技术取舍
-description: 用 AI 辅助、零预算、零服务器，从选型到上线完整复盘一次个人博客的搭建，重点记录那些"看起来没问题其实有问题"的坑。
+title: 如何零成本搭一个个人博客
+description: 用 AI 辅助、零预算、零服务器，从选型到上线完整复盘一次个人博客的搭建。
 date: 2026-10-06
 category: 技术笔记
-tags: [Astro, Vercel, 静态博客, Decap CMS, 踩坑记录, AI辅助开发]
+tags:
+  - Astro
+  - Vercel
+  - 静态博客
+  - Decap CMS
+  - 踩坑记录
+  - AI辅助开发
 ---
 
 做这个博客的条件很苛刻：**零预算、不买服务器、不写代码、还要能像发朋友圈一样更新**。
