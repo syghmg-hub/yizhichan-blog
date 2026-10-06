@@ -14,17 +14,6 @@ const email = siteConfig.contactEmail.trim();
     <p style="font-size:1.05rem">
       你好，这里是一只蝉的个人博客。
     </p>
-    <p>
-      名字来源于故乡夏夜的蝉鸣——聒噪、执拗，一年只热烈一次。
-      这个站点记录两类东西：生活里的<strong>随笔与摄影</strong>，以及工作中的<strong>技术笔记</strong>。
-    </p>
-
-    <h2>这里会写什么</h2>
-    <ul>
-      <li><strong>随笔</strong>：日常观察、读书观影、偶尔的胡思乱想</li>
-      <li><strong>相册</strong>：走过的路、拍下的光</li>
-      <li><strong>技术笔记</strong>：踩过的坑和整理出来的规范</li>
-    </ul>
 
     <h2>找到我</h2>
     {email ? (
@@ -38,18 +27,6 @@ const email = siteConfig.contactEmail.trim();
     )}
     <p>
       也欢迎通过 <a href={siteConfig.rssPath}>RSS</a> 订阅，新文章会自动送到你的阅读器。
-    </p>
-
-    <h2>写作后台</h2>
-    <p>
-      我给自己搭了一个网页版写作后台，在浏览器里就能发文章、传图片，不用碰代码：
-      <a href="/write/">查看使用说明</a> · <a href="/admin/">直接进入后台</a>
-    </p>
-
-    <h2>关于这个站点</h2>
-    <p>
-      用 Astro 搭建，部署在 Vercel，免费运行。没有广告、没有统计追踪，
-      文章和图片都存在我自己的 GitHub 仓库里。
     </p>
   </article>
 </Base>
