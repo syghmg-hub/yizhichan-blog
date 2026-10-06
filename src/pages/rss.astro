@@ -8,11 +8,10 @@ const feedUrl = new URL(siteConfig.rssPath, Astro.site).href;
 <Base title="RSS 订阅" description="用 RSS 订阅一只蝉的新文章">
   <header class="page-header">
     <h1>RSS 订阅</h1>
-    <p>新文章发布时，订阅器会自动收到通知</p>
-  </header>
+    </header>
 
   <article class="article-body">
-    <h2>先说清楚：RSS 是什么</h2>
+    <h2>什么是RSS</h2>
     <p>
       RSS 是一个<strong>自动更新的文章清单文件</strong>，也就是
       <code>{siteConfig.rssPath}</code> 这个地址。每次我发新文章，那个文件里就会多一条记录。
@@ -69,13 +68,7 @@ const feedUrl = new URL(siteConfig.rssPath, Astro.site).href;
       </li>
     </ul>
 
-    <h2>为什么值得订阅</h2>
-    <ul>
-      <li>不用打开网站、不用刷朋友圈，新文章自己出现</li>
-      <li>内容存在你自己的阅读器里，网站关掉也还在</li>
-      <li>没有算法推荐，没有广告追踪，只有我自己写的字</li>
-    </ul>
-  </article>
+    </article>
 </Base>
 
 <style>
