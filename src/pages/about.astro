@@ -14,25 +14,15 @@ const email = siteConfig.contactEmail.trim();
     <p style="font-size:1.05rem">
       你好，这里是一只蝉的个人博客。
     </p>
+    <p>
+      在这里你可以看到我记录的日常随笔、项目经验和技术分享。
+    </p>
 
-    <h2>找到我</h2>
-    {email ? (
+    <h2>怎么联系我</h2>
+    {email && (
       <p>
-        有话想说，可以写信给我：<a href={`mailto:${email}`}>{email}</a>
-      </p>
-    ) : (
-      <p class="contact-pending">
-        联系方式待补充。
+        有话想说，可以发邮箱给我：<a href={`mailto:${email}`}>{email}</a>
       </p>
     )}
-    <p>
-      也欢迎通过 <a href={siteConfig.rssPath}>RSS</a> 订阅，新文章会自动送到你的阅读器。
-    </p>
   </article>
 </Base>
-
-<style>
-  .contact-pending {
-    color: var(--text-soft);
-  }
-</style>
