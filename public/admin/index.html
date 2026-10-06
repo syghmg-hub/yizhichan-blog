@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>一只蝉 · 写作后台</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <style>
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
+          'Microsoft YaHei', sans-serif;
+        background: #faf9f6;
+        color: #2b2b2b;
+      }
+      .boot {
+        display: flex;
+        height: 100vh;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .dot {
+        width: 28px;
+        height: 28px;
+        border: 3px solid #d8e5dd;
+        border-top-color: #1f8a5f;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      p {
+        color: #6b6b6b;
+        font-size: 14px;
+      }
+      a {
+        color: #1f8a5f;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="boot">
+      <div class="dot"></div>
+      <p>正在加载写作后台…</p>
+      <p>若长时间无反应，请查看 <a href="/write/">写作说明</a></p>
+    </div>
+    <script src="https://unpkg.com/decap-cms@3.16.3/dist/decap-cms.js"></script>
+  </body>
+</html>

@@ -1,0 +1,93 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="写文章" description="一只蝉博客的写作后台使用说明" noindex>
+  <header class="page-header">
+    <h1>写文章</h1>
+    <p>不用碰代码、不用开命令行，浏览器里就能发文章</p>
+  </header>
+
+  <article class="article-body">
+    <p style="font-size:1.05rem">
+      <a href="/admin/" class="cta-button">→ 打开写作后台</a>
+    </p>
+
+    <h2>第一次使用</h2>
+    <ol>
+      <li>点上面的按钮打开后台，页面加载几秒后会看到 <strong>「使用 GitHub 登录」</strong> 按钮</li>
+      <li>点它，用你的 GitHub 账号授权（和登录 GitHub 一样，授权的是你自己的博客仓库）</li>
+      <li>登录后左侧会看到两个栏目：<strong>随笔</strong> 和 <strong>技术笔记</strong></li>
+    </ol>
+    <p>登录状态会被记住，以后直接打开 <code>/admin/</code> 即可，不用重复授权。</p>
+
+    <h2>发一篇文章</h2>
+    <ol>
+      <li>左侧选栏目（写生活随笔选「随笔」，写技术内容选「技术笔记」）</li>
+      <li>点右上角 <strong>新建文章</strong>，填写标题、摘要、日期、标签</li>
+      <li>在「正文」里写内容，用的是 Markdown：<code>## 小标题</code>、<code>**加粗**</code>、<code>- 列表</code>、<code>&gt; 引用</code> 都支持</li>
+      <li>点右上角 <strong>保存</strong></li>
+      <li>等约 1 分钟，刷新网站就能看到新文章</li>
+    </ol>
+    <p>
+      文章网址会根据标题自动生成拼音，例如标题「夏夜的蝉鸣」会得到
+      <code>/posts/sui-bi-xia-ye-de-chan-ming/</code>。
+    </p>
+
+    <h2>插入图片</h2>
+    <ol>
+      <li>在「正文」编辑框上方的工具栏里点 <strong>图片</strong> 图标</li>
+      <li>选「从媒体库选择」可以挑已有的图，或选「上传文件」直接从电脑传</li>
+      <li>手机拍照后也可以在这里直接上传，会自动压缩成 WebP 并限宽 1600px，不会把网站撑大</li>
+    </ol>
+    <p>图片统一存放在 <code>public/uploads/</code>，随文章一起提交到仓库，永久保留。</p>
+
+    <h2>草稿</h2>
+    <p>
+      底部把 <strong>草稿</strong> 打开再保存，文章不会出现在网站上（草稿箱筛选就在栏目列表上方）。写完记得关掉。
+    </p>
+
+    <h2>手机上怎么写</h2>
+    <p>
+      手机浏览器打开 <code>https://yizhichan-blog.vercel.app/admin</code> 即可，界面会自动适配屏幕。
+      登录、编辑、传图、保存都支持，权限和电脑上完全一样。
+    </p>
+
+    <h2>改和删</h2>
+    <p>
+      在左侧栏目里点开任何一篇文章就能直接修改，改完再点保存。已经不想要的文章，
+      在文章列表里点右侧的删除图标即可（会真的从网站和仓库里移除，请谨慎）。
+    </p>
+
+    <h2>遇到问题</h2>
+    <ul>
+      <li><strong>保存按钮点了没反应</strong>：通常是网络问题，检查代理是否开启，刷新页面重试</li>
+      <li><strong>图片上传失败</strong>：单张超过约 10MB 时容易失败，先压缩或缩小尺寸再传</li>
+      <li><strong>登录页报错</strong>：托管登录服务（Decap）偶尔维护，稍后再试；或先用本地 <code>启动预览.cmd</code> 写作</li>
+      <li><strong>找不到某个栏目</strong>：两个栏目分别对应两个文件夹，选错了文章会进错目录</li>
+    </ul>
+
+    <blockquote>
+      所有修改都会记录在
+      <a href="https://github.com/syghmg-hub/yizhichan-blog/commits/main">GitHub 提交历史</a>
+      里，写错了可以随时找回来。
+    </blockquote>
+  </article>
+</Base>
+
+<style>
+  .cta-button {
+    display: inline-block;
+    padding: 10px 22px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 8px;
+    font-weight: 600;
+  }
+
+  .cta-button:hover {
+    text-decoration: none;
+    opacity: 0.9;
+    color: #fff;
+  }
+</style>

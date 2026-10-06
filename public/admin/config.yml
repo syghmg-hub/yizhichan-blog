@@ -1,0 +1,166 @@
+# 一只蝉 · 写作后台配置
+# 界面语言：简体中文
+# 内容仍然保存在 GitHub 仓库的 src/content/posts 目录，保存即触发 Vercel 自动部署
+
+backend:
+  name: github
+  repo: syghmg-hub/yizhichan-blog
+  branch: main
+  commit_messages:
+    create: '写作：新建 {{collection}}「{{slug}}」'
+    update: '写作：更新 {{collection}}「{{slug}}」'
+    delete: '写作：删除 {{collection}}「{{slug}}」'
+    uploadMedia: '写作：上传图片 {{path}}'
+    deleteMedia: '写作：删除图片 {{path}}'
+
+site_url: https://yizhichan-blog.vercel.app
+display_url: https://yizhichan-blog.vercel.app
+logo:
+  src: https://yizhichan-blog.vercel.app/favicon.svg
+  show_in_header: true
+
+locale: zh_Hans
+
+# 保存即发布（不做审核草稿流，个人博客够用）
+publish_mode: simple
+
+# 预览链接指向的是英文路径，与本博客的中文转拼音网址不一致，故关闭避免误点
+show_preview_links: false
+
+# 图片上传：存进仓库的 public/uploads/，访问路径 /uploads/xxx.webp
+media_folder: public/uploads
+public_folder: /uploads
+
+# 上传时自动压缩，避免仓库膨胀
+media_processing:
+  enabled: true
+  format:
+    enabled: true
+    default: webp
+  quality: 82
+  strip_metadata: true
+  width: 1600
+
+slug:
+  encoding: unicode
+  sanitize_replacement: '-'
+
+collections:
+  - name: posts_suibi
+    label: 随笔
+    label_singular: 随笔
+    description: 生活随笔、读书观影、随想
+    folder: 'src/content/posts/随笔'
+    create: true
+    delete: true
+    extension: md
+    format: frontmatter
+    identifier_field: title
+    slug: '{{slug}}'
+    summary: '{{title}} · {{date}}'
+    sortable_fields: [date, title]
+    view_filters:
+      - label: 草稿箱
+        field: draft
+        pattern: true
+    fields:
+      - label: 标题
+        name: title
+        widget: string
+        hint: 建议 15 字以内，会用于生成网址
+      - label: 摘要
+        name: description
+        widget: text
+        required: false
+        hint: 一句话概括，显示在首页列表
+      - label: 发布日期
+        name: date
+        widget: datetime
+        format: YYYY-MM-DD
+        date_format: YYYY-MM-DD
+        time_format: false
+        picker_utc: false
+      - label: 栏目
+        name: category
+        widget: hidden
+        default: 随笔
+      - label: 标签
+        name: tags
+        widget: list
+        required: false
+        allow_add: true
+        field: { label: 标签, name: tag, widget: string }
+        hint: 回车确认，可加多个
+      - label: 封面图
+        name: cover
+        widget: image
+        required: false
+        hint: 可留空，留空则用随机图或纯文字展示
+      - label: 正文
+        name: body
+        widget: markdown
+      - label: 草稿
+        name: draft
+        widget: boolean
+        default: false
+        required: false
+        hint: 勾选后不会出现在网站上
+
+  - name: posts_tech
+    label: 技术笔记
+    label_singular: 技术笔记
+    description: 技术总结、踩坑记录、使用规范
+    folder: 'src/content/posts/技术笔记'
+    create: true
+    delete: true
+    extension: md
+    format: frontmatter
+    identifier_field: title
+    slug: '{{slug}}'
+    summary: '{{title}} · {{date}}'
+    sortable_fields: [date, title]
+    view_filters:
+      - label: 草稿箱
+        field: draft
+        pattern: true
+    fields:
+      - label: 标题
+        name: title
+        widget: string
+        hint: 建议 15 字以内，会用于生成网址
+      - label: 摘要
+        name: description
+        widget: text
+        required: false
+        hint: 一句话概括，显示在首页列表
+      - label: 发布日期
+        name: date
+        widget: datetime
+        format: YYYY-MM-DD
+        date_format: YYYY-MM-DD
+        time_format: false
+        picker_utc: false
+      - label: 栏目
+        name: category
+        widget: hidden
+        default: 技术笔记
+      - label: 标签
+        name: tags
+        widget: list
+        required: false
+        allow_add: true
+        field: { label: 标签, name: tag, widget: string }
+        hint: 回车确认，可加多个
+      - label: 封面图
+        name: cover
+        widget: image
+        required: false
+      - label: 正文
+        name: body
+        widget: markdown
+      - label: 草稿
+        name: draft
+        widget: boolean
+        default: false
+        required: false
+        hint: 勾选后不会出现在网站上
