@@ -1,6 +1,21 @@
 ---
-import { photos } from '../data/photos';
+import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
+
+// 从内容集合读取（可在写作后台增删改），排序：order 小的优先，其次按文件名
+const entries = (await getCollection('photos')).sort((a, b) => {
+  const ao = a.data.order ?? 999;
+  const bo = b.data.order ?? 999;
+  if (ao !== bo) return ao - bo;
+  return a.id.localeCompare(b.id);
+});
+
+const photos = entries.map((e) => ({
+  src: e.data.image,
+  title: e.data.title,
+  date: e.data.date ?? '',
+  alt: e.data.alt || e.data.title,
+}));
 ---
 
 <Base title="相册">
@@ -9,23 +24,36 @@ import Base from '../layouts/Base.astro';
     <p>随手拍下的光与影 · 共 {photos.length} 张</p>
   </header>
 
-  <div class="gallery-grid">
-    {photos.map((photo) => (
-      <figure class="gallery-item">
-        <button
-          class="gallery-btn"
-          type="button"
-          data-src={photo.src}
-          data-caption={`${photo.title} · ${photo.date}`}
-          aria-label={`放大查看：${photo.title}`}
-        >
-          <img src={photo.src} alt={photo.title} loading="lazy" />
-        </button>
-        <figcaption class="gallery-caption">
-          {photo.title} · {photo.date}
-        </figcaption>
-      </figure>
-    ))}
+  {photos.length === 0 ? (
+    <p class="empty-state">还没有照片。可以在写作后台的「相册」里上传第一张。</p>
+  ) : (
+    <div class="gallery-grid">
+      {photos.map((photo) => (
+        <figure class="gallery-item">
+          <button
+            class="gallery-btn"
+            type="button"
+            data-src={photo.src}
+            data-caption={`${photo.title}${photo.date ? ' · ' + photo.date : ''}`}
+            aria-label={`放大查看：${photo.title}`}
+          >
+            <img src={photo.src} alt={photo.alt} loading="lazy" />
+          </button>
+          <figcaption class="gallery-caption">
+            {photo.title}{photo.date ? ` · ${photo.date}` : ''}
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  )}
+
+  <!-- 灯箱 -->
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lightbox-close" type="button" aria-label="关闭">✕</button>
+    <figure class="lightbox-inner">
+      <img id="lightbox-img" src="" alt="" />
+      <figcaption id="lightbox-caption"></figcaption>
+    </figure>
   </div>
 </Base>
 

@@ -1,26 +1,33 @@
+/* 配色说明（蓝色协调版）
+   Decap 后台主色为 #3a69c7，博客改用同一色系以消除蓝绿混色。
+   如需回退绿色版，把下面三处改回即可：
+     light accent  #1f8a5f / dark accent #4cc38a / favicon 底色 #1f8a5f
+*/
 :root {
-  --bg: #faf9f6;
-  --bg-soft: #f1efe9;
+  --bg: #f8f9fb;
+  --bg-soft: #eef1f6;
   --bg-card: #ffffff;
-  --text: #2b2b2b;
-  --text-soft: #6b6b6b;
-  --border: #e5e2da;
-  --accent: #1f8a5f;
-  --accent-soft: rgba(31, 138, 95, 0.1);
-  --shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --text: #262a33;
+  --text-soft: #666e7d;
+  --border: #e1e5ec;
+  --accent: #3a69c7;
+  --accent-dark: #2c53a0;
+  --accent-soft: rgba(58, 105, 199, 0.1);
+  --shadow: 0 1px 3px rgba(24, 33, 51, 0.07);
   --radius: 10px;
   --content-width: 720px;
 }
 
 html.dark {
-  --bg: #14161a;
-  --bg-soft: #1c1f25;
-  --bg-card: #1c1f25;
-  --text: #d8d8d5;
-  --text-soft: #9a9a95;
-  --border: #2b2f36;
-  --accent: #4cc38a;
-  --accent-soft: rgba(76, 195, 138, 0.12);
+  --bg: #14171d;
+  --bg-soft: #1c212a;
+  --bg-card: #1c212a;
+  --text: #d7dae1;
+  --text-soft: #949cab;
+  --border: #2a3140;
+  --accent: #7ba2ec;
+  --accent-dark: #a2bef3;
+  --accent-soft: rgba(123, 162, 236, 0.14);
   --shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 

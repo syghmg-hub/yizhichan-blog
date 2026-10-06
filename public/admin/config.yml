@@ -107,6 +107,47 @@ collections:
         required: false
         hint: 勾选后不会出现在网站上
 
+  - name: photos
+    label: 相册
+    label_singular: 照片
+    description: 首页「相册」页面里的照片，可上传、排序、删除
+    folder: 'src/content/photos'
+    create: true
+    delete: true
+    extension: yml
+    format: yaml
+    identifier_field: title
+    slug: '{{slug}}'
+    summary: '{{title}} · {{date}}'
+    sortable_fields: [order, title]
+    fields:
+      - label: 标题
+        name: title
+        widget: string
+        hint: 照片的简短名字，显示在图片下方
+      - label: 拍摄时间
+        name: date
+        widget: string
+        required: false
+        default: ''
+        hint: 随便写，例如 2026-08 或 2026年夏
+      - label: 图片
+        name: image
+        widget: image
+        hint: 从媒体库选择，或直接上传新照片
+      - label: 图片说明
+        name: alt
+        widget: text
+        required: false
+        default: ''
+        hint: 描述画面内容，无障碍与 SEO 都会用到
+      - label: 排序
+        name: order
+        widget: number
+        required: false
+        default: 100
+        help: 数字越小越靠前；留空按 100 处理
+
   - name: posts_tech
     label: 技术笔记
     label_singular: 技术笔记

@@ -24,4 +24,16 @@ const posts = defineCollection({
   }),
 });
 
-export const collections = { posts };
+// 相册：每张照片一个 .yml 文件，可在写作后台增删改
+const photos = defineCollection({
+  loader: glob({ pattern: '**/*.{yml,yaml}', base: './src/content/photos' }),
+  schema: z.object({
+    title: z.string(),
+    date: z.string().optional(),
+    image: z.string(),
+    alt: z.string().optional(),
+    order: z.number().optional(),
+  }),
+});
+
+export const collections = { posts, photos };
